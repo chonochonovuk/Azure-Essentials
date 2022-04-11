@@ -1,0 +1,77 @@
+Implementation steps:
+
+1.Use created RG - ChonoResGroup over which I have write and read rights since I use company subscription.
+2.Created ACR
+3.Creted AKS
+4.Created sql server and sql db
+5.Copied and created connection string in docker/index.php
+6.Use azure acr cli to build and push image to ACR:
+
+ az acr build --registry chonorgexamacr --image chonochonov/azurergexam:v3 . 
+
+7.Set the image name in k8s manifest file
+8.get and store the credentials needed for communication with the cluster, you must execute:
+
+  az aks get-credentials --resource-group ChonoResGroup --name azurergexamaks
+
+9.Now, you can use the kubectl tool to manage the cluster. Test that it is working:
+
+   kubectl cluster-info
+
+10.Navigate to directory where manifest files are and Deploy both the service and application simultaneously:
+
+   kubectl apply -f service.yaml -f deployment.yaml
+
+11.Check:
+
+   kubectl get svc,pod
+
+12.Get the load balancer IP address and test the application
+13.Create Web App
+14.Copy the connection string used earlier to the /webapp/index.php file 
+   Save and close the file
+
+15.Copy the application URL and paste it into a browser tab
+16.The application working
+17.Function App + Timer Trigger every 3 minutes
+18.Change C# conn string with appropriate and after save hit refresh button as well
+    Don’t forget to change the values of the database name, server, and the password
+19.Working
+
+20.Function App - Http Trigger
+
+  a) check the function logic and change connection string 
+
+     Don’t forget to change the values of the database name, server, and the password
+
+     Click Save
+
+21.Use function url to trigger http request
+
+22.Organizational apply a tag role with value of front on the web app
+23.Organizational apply a tag role with value of back on the database
+24.Put a resource lock of type Delete on the database
+25.Define (if needed) and assign a policy that enforces tag
+26.Tag policy working on new function app
+27.Prove that the policy is working by adding a resource of your choice with name POLICY (this can be
+   anything, for example a virtual network,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

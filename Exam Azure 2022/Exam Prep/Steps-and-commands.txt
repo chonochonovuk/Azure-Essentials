@@ -1,0 +1,146 @@
+Steps and commands: !!! Read the task carefully
+
+1. Create Resource Group - Use already existing ChonoResGroup
+2. Create ACR - use already created
+3. Database and database server - use already created password is Wish125beak255
+4. Create AKS steps:
+
+a) Change the size of the nodes to Standard B2s
+b) Set the number of nodes to 1
+c) Switch to Integrations tab
+d) Select the registry created earlier in the Container registry drop-down list
+e) Copy the connaction SQL string and paste it to Dockerfile related index.php, !!!! WRITE INTO YOUR PASSWORD !!!
+   but before that check the Dockerfile itself which will be in /docker directory probably - save
+f) Build the image with ACR
+ - by using terminal navigate to directory where Dockerfile
+ - use this command, but check if there is a image name in kubernetes manifest:
+
+   az acr build --registry chonoTestAcr --image chonochonov/azureexam:v5 .
+
+ - check registry to comfirm image is there
+ - take photos of both CLI and registry
+
+
+g) Edit deployment.yaml and add IMAGE NAME by coping from azure portal and Save it.
+k) Check service.yaml
+l) To get and store the credentials needed for communication with the cluster, you must execute:
+
+   az aks get-credentials --resource-group ChonoResGroup --name <cluster-name>
+
+m) Now, you can use the kubectl tool to manage the cluster. Test that it is working:
+
+   kubectl cluster-info
+
+n) Navigate to directory where manifest files are and Deploy both the service and application simultaneously:
+
+   kubectl apply -f service.yaml -f deployment.yaml
+
+o) We can check periodically how it is going:
+
+   kubectl get svc,pod
+
+p) Get the load balancer IP address and test the application
+
+5.App Services + Web App
+
+a) Make sure that the subscription, resource group, and region are all set
+
+   Enter an arbitrary name
+
+   Make sure that Code is selected
+
+   Select PHP 7.4
+
+   For SKU and size select F1
+
+   Click Review + create and then Create
+
+b) Copy the connection string used earlier to the /webapp/index.php file 
+   Save and close the file
+
+c) Go to the Deployment Center under Deployment in the Web App created earlier
+
+   Switch to the FTPS Credentials tab
+
+   Start an FTP client, for example, FileZilla
+
+   Connect to the service and upload the webapp/index.php file
+
+   Return to the Overview mode
+
+   Copy the application URL and paste it into a browser tab
+
+   The application should be working
+
+6.Function App + Timer Trigger
+
+ a) Search for Function App
+    For Runtime stack select .NET
+
+   For Version select 3.1
+
+   Click Review + create and then Create
+
+ b) Click + Add to add a new functions TimeTrigger check the time intervail from the description and change it
+
+ c) change C# conn string with appropriate and after save hit refresh button as well
+    Don’t forget to change the values of the database name, server, and the password
+
+7.Function App - Http Trigger
+
+  a) check the function logic and change connection string 
+
+     Don’t forget to change the values of the database name, server, and the password
+
+     Click Save
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
